@@ -51,19 +51,20 @@ window.renderStatistics = function (ctx, names, times) {
     return maxElement;
   };
 
-  ctx.fillStyle = '#000';
+
 
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < names.length; i++) {
-    if (i === 'Вы') {
+    if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
       ctx.fillStyle = 'hsl(240, ' + Math.floor(Math.random() * 100) + '%' + ', 50%)';
     }
+    ctx.fillRect(CLOUD_X + (BAR_WIDTH + GAP) * i, CLOUD_Y - ((BAR_HEIGHT * times[i]) / maxTime), BAR_WIDTH, (BAR_HEIGHT * times[i]) / maxTime);
+    ctx.fillStyle = '#000';
     ctx.fillText(names[i], CLOUD_X + (BAR_WIDTH + GAP) * i, TEXT_Y);
     ctx.fillText(Math.floor(times[i]), CLOUD_X + (BAR_WIDTH + GAP) * i, CLOUD_Y - ((BAR_HEIGHT * times[i]) / maxTime) - TEXT_GAP);
-    ctx.fillRect(CLOUD_X + (BAR_WIDTH + GAP) * i, CLOUD_Y - ((BAR_HEIGHT * times[i]) / maxTime), BAR_WIDTH, (BAR_HEIGHT * times[i]) / maxTime);
   }
 
   // ctx.fillStyle = 'rgba(255, 0, 0, 1)';
