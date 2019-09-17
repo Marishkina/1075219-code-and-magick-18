@@ -51,8 +51,6 @@ window.renderStatistics = function (ctx, names, times) {
     return maxElement;
   };
 
-
-
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < names.length; i++) {
@@ -66,9 +64,4 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillText(names[i], CLOUD_X + (BAR_WIDTH + GAP) * i, TEXT_Y);
     ctx.fillText(Math.floor(times[i]), CLOUD_X + (BAR_WIDTH + GAP) * i, CLOUD_Y - ((BAR_HEIGHT * times[i]) / maxTime) - TEXT_GAP);
   }
-
-  // ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-
-  // ctx.fillStyle = 'hsl(240, ' + Math.floor(Math.random() * 100) + '%' + ', 50%)';
 };
-
