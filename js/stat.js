@@ -1,12 +1,40 @@
 'use strict';
 
-var CLOUD_X = 155;
-var CLOUD_Y = 245;
-var GAP = 50;
+var BAR_X = 155;
+var BAR_Y = 245;
 var BAR_WIDTH = 40;
-var TEXT_Y = 250;
 var BAR_HEIGHT = 150;
+var BAR_GAP = 50;
+var TEXT_Y = 250;
 var TEXT_GAP = 20;
+var textLine = 'hanging';
+var fontColor = '#000';
+var fontStyle = '16px PT Mono';
+var SIGN_X = 130;
+var SIGN_Y = 30;
+var yourBarColor = 'rgba(255, 0, 0, 1)';
+
+var renderText = function (ctx, color, font, textBaseLine, text, x, y) {
+  ctx.fillStyle = fontColor;
+  ctx.textBaseline = textLine;
+  ctx.font = fontStyle;
+  ctx.fillText(text, x, y);
+};
+
+var getMaxElement = function (arr) {
+  var maxElement = arr[0];
+
+  for (var i = 1; i < arr.length; i++) {
+    if (arr[i] > maxElement) {
+      maxElement = arr[i];
+    }
+  }
+  return maxElement;
+};
+
+var renderBarColor = function (ctx) {
+  ctx.fillStyle = 'hsl(240, ' + Math.floor(Math.random() * 100) + '%' + ', 50%)';
+};
 
 window.renderStatistics = function (ctx, names, times) {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
@@ -33,35 +61,20 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.closePath();
   ctx.fill();
 
-
-  ctx.font = '16px PT Mono';
-  ctx.textBaseline = 'hanging';
-  ctx.fillStyle = '#000';
-  ctx.fillText('Ура вы победили!', 130, 30);
-  ctx.fillText('Список результатов:', 130, 50);
-
-  var getMaxElement = function (arr) {
-    var maxElement = arr[0];
-
-    for (var i = 1; i < arr.length; i++) {
-      if (arr[i] > maxElement) {
-        maxElement = arr[i];
-      }
-    }
-    return maxElement;
-  };
+  renderText(ctx, fontColor, fontStyle, textLine, 'Ура вы победили!', SIGN_X, SIGN_Y);
+  renderText(ctx, fontColor, fontStyle, textLine, 'Список результатов:', SIGN_X, SIGN_Y + 20);
 
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < names.length; i++) {
     if (names[i] === 'Вы') {
-      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+      ctx.fillStyle = yourBarColor;
     } else {
-      ctx.fillStyle = 'hsl(240, ' + Math.floor(Math.random() * 100) + '%' + ', 50%)';
+      renderBarColor(ctx);
     }
-    ctx.fillRect(CLOUD_X + (BAR_WIDTH + GAP) * i, CLOUD_Y - ((BAR_HEIGHT * times[i]) / maxTime), BAR_WIDTH, (BAR_HEIGHT * times[i]) / maxTime);
-    ctx.fillStyle = '#000';
-    ctx.fillText(names[i], CLOUD_X + (BAR_WIDTH + GAP) * i, TEXT_Y);
-    ctx.fillText(Math.floor(times[i]), CLOUD_X + (BAR_WIDTH + GAP) * i, CLOUD_Y - ((BAR_HEIGHT * times[i]) / maxTime) - TEXT_GAP);
+    ctx.fillRect(BAR_X + (BAR_WIDTH + BAR_GAP) * i, BAR_Y - ((BAR_HEIGHT * times[i]) / maxTime), BAR_WIDTH, (BAR_HEIGHT * times[i]) / maxTime);
+    ctx.fillStyle = fontColor;
+    ctx.fillText(names[i], BAR_X + (BAR_WIDTH + BAR_GAP) * i, TEXT_Y);
+    ctx.fillText(Math.floor(times[i]), BAR_X + (BAR_WIDTH + BAR_GAP) * i, BAR_Y - ((BAR_HEIGHT * times[i]) / maxTime) - TEXT_GAP);
   }
 };
