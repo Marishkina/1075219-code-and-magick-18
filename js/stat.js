@@ -70,6 +70,16 @@ var renderBarColor = function (name) {
   return barColor;
 };
 
+var renderName = function (ctx, name, x, y) {
+  ctx.fillStyle = FONT_COLOR;
+  ctx.fillText(name, x, y);
+};
+
+var renderScore = function (ctx, time, x, y) {
+  ctx.fillStyle = FONT_COLOR;
+  ctx.fillText(time, x, y);
+};
+
 window.renderStatistics = function (ctx, names, times) {
 
   renderPopUpShadow(ctx, 'rgba(0, 0, 0, 0.7)');
@@ -85,8 +95,9 @@ window.renderStatistics = function (ctx, names, times) {
 
     ctx.fillStyle = renderBarColor(names[i]);
     ctx.fillRect(BAR_X + NEXT_BAR_X * i, BAR_Y - columnHeight, BAR_WIDTH, columnHeight);
-    ctx.fillStyle = FONT_COLOR;
-    ctx.fillText(names[i], BAR_X + NEXT_BAR_X * i, TEXT_Y);
-    ctx.fillText(Math.floor(times[i]), BAR_X + NEXT_BAR_X * i, BAR_Y - columnHeight - TEXT_GAP);
+    renderName(ctx, names[i], BAR_X + NEXT_BAR_X * i, TEXT_Y);
+    renderScore(ctx, Math.floor(times[i]), BAR_X + NEXT_BAR_X * i, BAR_Y - columnHeight - TEXT_GAP);
   }
 };
+
+
