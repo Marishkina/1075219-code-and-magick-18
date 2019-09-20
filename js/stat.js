@@ -51,8 +51,9 @@ var getMaxElement = function (arr) {
 };
 
 var renderBarColor = function (name) {
-  var YOUR_BAR_COLOR = 'rgba(255, 0, 0, 1)';
-  var barColor = (name === 'Вы') ? YOUR_BAR_COLOR : 'hsl(240, ' + Math.floor(Math.random() * 100) + '%' + ', 50%)';
+  var yourBarColor = 'rgba(255, 0, 0, 1)';
+  var otherBarColor = 'hsl(240, ' + Math.floor(Math.random() * 100) + '%' + ', 50%)';
+  var barColor = (name === 'Вы') ? yourBarColor : otherBarColor;
   return barColor;
 };
 
@@ -88,11 +89,13 @@ var renderBar = function (ctx, names, times) {
 };
 
 window.renderStatistics = function (ctx, names, times) {
+  var signX = 130;
+  var signY = 30;
   renderPopUpShadow(ctx, 'rgba(0, 0, 0, 0.7)');
   renderPopUp(ctx, '#fff');
 
-  renderText(ctx, FONT_COLOR, FONT_STYLE, TEXT_LINE, 'Ура вы победили!', 130, 30);
-  renderText(ctx, FONT_COLOR, FONT_STYLE, TEXT_LINE, 'Список результатов:', 130, 50);
+  renderText(ctx, FONT_COLOR, FONT_STYLE, TEXT_LINE, 'Ура вы победили!', signX, signY);
+  renderText(ctx, FONT_COLOR, FONT_STYLE, TEXT_LINE, 'Список результатов:', signX, signY + 20);
 
   renderBar(ctx, names, times);
 };
