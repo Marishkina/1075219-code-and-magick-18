@@ -5,7 +5,6 @@ var BAR_Y = 245;
 var BAR_WIDTH = 40;
 var BAR_HEIGHT = 150;
 var BAR_GAP = 50;
-var NEXT_BAR_X = (BAR_WIDTH + BAR_GAP);
 var TEXT_Y = 250;
 var TEXT_GAP = 20;
 var TEXT_LINE = 'hanging';
@@ -80,6 +79,20 @@ var renderScore = function (ctx, time, x, y) {
   ctx.fillText(time, x, y);
 };
 
+var renderBar = function (ctx, names, times) {
+  var maxTime = getMaxElement(times);
+
+  for (var i = 0; i < names.length; i++) {
+    var columnHeight = ((BAR_HEIGHT * times[i]) / maxTime);
+    var nextBarX = (BAR_WIDTH + BAR_GAP);
+
+    ctx.fillStyle = renderBarColor(names[i]);
+    ctx.fillRect(BAR_X + nextBarX * i, BAR_Y - columnHeight, BAR_WIDTH, columnHeight);
+    renderName(ctx, names[i], BAR_X + nextBarX * i, TEXT_Y);
+    renderScore(ctx, Math.floor(times[i]), BAR_X + nextBarX * i, BAR_Y - columnHeight - TEXT_GAP);
+  }
+};
+
 window.renderStatistics = function (ctx, names, times) {
 
   renderPopUpShadow(ctx, 'rgba(0, 0, 0, 0.7)');
@@ -88,16 +101,7 @@ window.renderStatistics = function (ctx, names, times) {
   renderText(ctx, FONT_COLOR, FONT_STYLE, TEXT_LINE, 'Ура вы победили!', SIGN_X, SIGN_Y);
   renderText(ctx, FONT_COLOR, FONT_STYLE, TEXT_LINE, 'Список результатов:', SIGN_X, SIGN_Y + 20);
 
-  var maxTime = getMaxElement(times);
-
-  for (var i = 0; i < names.length; i++) {
-    var columnHeight = ((BAR_HEIGHT * times[i]) / maxTime);
-
-    ctx.fillStyle = renderBarColor(names[i]);
-    ctx.fillRect(BAR_X + NEXT_BAR_X * i, BAR_Y - columnHeight, BAR_WIDTH, columnHeight);
-    renderName(ctx, names[i], BAR_X + NEXT_BAR_X * i, TEXT_Y);
-    renderScore(ctx, Math.floor(times[i]), BAR_X + NEXT_BAR_X * i, BAR_Y - columnHeight - TEXT_GAP);
-  }
+  renderBar(ctx, names, times);
 };
 
 
