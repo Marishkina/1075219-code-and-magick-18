@@ -1,18 +1,8 @@
 'use strict';
 
-var BAR_X = 155;
-var BAR_Y = 245;
-var BAR_WIDTH = 40;
-var BAR_HEIGHT = 150;
-var BAR_GAP = 50;
-var TEXT_Y = 250;
-var TEXT_GAP = 20;
 var TEXT_LINE = 'hanging';
 var FONT_COLOR = '#000';
 var FONT_STYLE = '16px PT Mono';
-var SIGN_X = 130;
-var SIGN_Y = 30;
-var YOUR_BAR_COLOR = 'rgba(255, 0, 0, 1)';
 
 var renderPopUp = function (ctx, color) {
   ctx.fillStyle = color;
@@ -61,11 +51,8 @@ var getMaxElement = function (arr) {
 };
 
 var renderBarColor = function (name) {
-  var barColor = 'hsl(240, ' + Math.floor(Math.random() * 100) + '%' + ', 50%)';
-
-  if (name === 'Вы') {
-    barColor = YOUR_BAR_COLOR;
-  }
+  var YOUR_BAR_COLOR = 'rgba(255, 0, 0, 1)';
+  var barColor = (name === 'Вы') ? YOUR_BAR_COLOR : 'hsl(240, ' + Math.floor(Math.random() * 100) + '%' + ', 50%)';
   return barColor;
 };
 
@@ -81,27 +68,31 @@ var renderScore = function (ctx, time, x, y) {
 
 var renderBar = function (ctx, names, times) {
   var maxTime = getMaxElement(times);
+  var barX = 155;
+  var barY = 245;
+  var barWidth = 40;
+  var barHeight = 150;
+  var barGap = 50;
+  var textY = 250;
+  var textGap = 20;
 
   for (var i = 0; i < names.length; i++) {
-    var columnHeight = ((BAR_HEIGHT * times[i]) / maxTime);
-    var nextBarX = (BAR_WIDTH + BAR_GAP);
+    var columnHeight = ((barHeight * times[i]) / maxTime);
+    var nextBarX = (barWidth + barGap);
 
     ctx.fillStyle = renderBarColor(names[i]);
-    ctx.fillRect(BAR_X + nextBarX * i, BAR_Y - columnHeight, BAR_WIDTH, columnHeight);
-    renderName(ctx, names[i], BAR_X + nextBarX * i, TEXT_Y);
-    renderScore(ctx, Math.floor(times[i]), BAR_X + nextBarX * i, BAR_Y - columnHeight - TEXT_GAP);
+    ctx.fillRect(barX + nextBarX * i, barY - columnHeight, barWidth, columnHeight);
+    renderName(ctx, names[i], barX + nextBarX * i, textY);
+    renderScore(ctx, Math.floor(times[i]), barX + nextBarX * i, barY - columnHeight - textGap);
   }
 };
 
 window.renderStatistics = function (ctx, names, times) {
-
   renderPopUpShadow(ctx, 'rgba(0, 0, 0, 0.7)');
   renderPopUp(ctx, '#fff');
 
-  renderText(ctx, FONT_COLOR, FONT_STYLE, TEXT_LINE, 'Ура вы победили!', SIGN_X, SIGN_Y);
-  renderText(ctx, FONT_COLOR, FONT_STYLE, TEXT_LINE, 'Список результатов:', SIGN_X, SIGN_Y + 20);
+  renderText(ctx, FONT_COLOR, FONT_STYLE, TEXT_LINE, 'Ура вы победили!', 130, 30);
+  renderText(ctx, FONT_COLOR, FONT_STYLE, TEXT_LINE, 'Список результатов:', 130, 50);
 
   renderBar(ctx, names, times);
 };
-
-
