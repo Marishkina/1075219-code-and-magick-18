@@ -9,8 +9,7 @@ var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
 var getRandomItem = function (array) {
-  var randomItem = array[Math.floor(Math.random() * array.length)];
-  return randomItem;
+  return array[Math.floor(Math.random() * array.length)];
 };
 
 var getWizardsArray = function (wizardCount) {
