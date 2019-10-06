@@ -68,15 +68,6 @@ var onFireballClick = function () {
   setupFireball.querySelector('input[name = fireball-color]').value = wizardFireballColor;
 };
 
-setupOpen.addEventListener('click', openPopup);
-setupClose.addEventListener('click', closePopup);
-setupOpenIcon.addEventListener('keydown', onIconEnterPress);
-document.addEventListener('keydown', onPopupEscPress);
-setupClose.addEventListener('keydown', onPopupEnterPress);
-wizardCoat.addEventListener('click', onWizardCoatClick);
-wizardEyes.addEventListener('click', onWizardEyesClick);
-setupFireball.addEventListener('click', onFireballClick);
-
 var getRandomItem = function (array) {
   return array[Math.floor(Math.random() * array.length)];
 };
@@ -116,5 +107,13 @@ function init() {
   similarListElement.appendChild(fragment);
 
   userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  setupOpen.addEventListener('click', openPopup);
+  setupClose.addEventListener('click', closePopup);
+  setupOpenIcon.addEventListener('keydown', onIconEnterPress);
+  document.addEventListener('keydown', onPopupEscPress);
+  setupClose.addEventListener('keydown', onPopupEnterPress);
+  wizardCoat.addEventListener('click', onWizardCoatClick);
+  wizardEyes.addEventListener('click', onWizardEyesClick);
+  setupFireball.addEventListener('click', onFireballClick);
 }
 init();
