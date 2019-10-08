@@ -1,11 +1,8 @@
 'use strict';
 
-var WIZARD_FIRST_NAME = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-var WIZARD_SECOND_NAME = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var WIZARD_COUNT = 4;
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
-var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
 var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
@@ -63,6 +60,7 @@ var onWizardEyesClick = function () {
 };
 
 var onFireballClick = function () {
+  var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
   var wizardFireballColor = getRandomItem(FIREBALL_COLORS);
   setupFireball.style.background = wizardFireballColor;
   setupFireball.querySelector('input[name = fireball-color]').value = wizardFireballColor;
@@ -72,11 +70,13 @@ var getRandomItem = function (array) {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-var getWizardsArray = function (wizardCount) {
+var getWizardsList = function (wizardCount) {
+  var WIZARD_FIRST_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+  var WIZARD_SECOND_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
   var wizards = [];
   for (var i = 0; i < wizardCount; i++) {
     wizards[i] = {
-      name: getRandomItem(WIZARD_FIRST_NAME) + ' ' + getRandomItem(WIZARD_SECOND_NAME),
+      name: getRandomItem(WIZARD_FIRST_NAMES) + ' ' + getRandomItem(WIZARD_SECOND_NAMES),
       coatColor: getRandomItem(COAT_COLORS),
       eyesColor: getRandomItem(EYE_COLORS)
     };
@@ -94,8 +94,7 @@ var renderWizard = function (wizard) {
   return wizardElement;
 };
 
-function init() {
-  var wizards = getWizardsArray(WIZARD_COUNT);
+var init = function (wizards) {
   var userDialog = document.querySelector('.setup');
   var fragment = document.createDocumentFragment();
 
@@ -114,5 +113,6 @@ function init() {
   wizardCoat.addEventListener('click', onWizardCoatClick);
   wizardEyes.addEventListener('click', onWizardEyesClick);
   setupFireball.addEventListener('click', onFireballClick);
-}
-init();
+};
+
+init(getWizardsList(WIZARD_COUNT));
