@@ -99,11 +99,10 @@ function init() {
   var userDialog = document.querySelector('.setup');
   var fragment = document.createDocumentFragment();
 
-  // userDialog.classList.remove('hidden');
-
   for (var i = 0; i < wizards.length; i++) {
     fragment.appendChild(renderWizard(wizards[i]));
   }
+
   similarListElement.appendChild(fragment);
 
   userDialog.querySelector('.setup-similar').classList.remove('hidden');
