@@ -26,7 +26,7 @@
     setup.classList.add('hidden');
   };
 
-  var onPopupEscPress = function (evt) {
+  var onPopupEscDown = function (evt) {
     if (evt.keyCode === 27) {
       if (evt.target === userName) {
         evt.stopPropogation();
@@ -36,13 +36,13 @@
     }
   };
 
-  var onIconEnterPress = function (evt) {
+  var onIconEnterDown = function (evt) {
     if (evt.keyCode === 13) {
       openPopup();
     }
   };
 
-  var onPopupEnterPress = function (evt) {
+  var onPopupEnterDown = function (evt) {
     if (evt.keyCode === 13) {
       closePopup();
     }
@@ -108,9 +108,9 @@
     userDialog.querySelector('.setup-similar').classList.remove('hidden');
     setupOpen.addEventListener('click', openPopup);
     setupClose.addEventListener('click', closePopup);
-    setupOpenIcon.addEventListener('keydown', onIconEnterPress);
-    document.addEventListener('keydown', onPopupEscPress);
-    setupClose.addEventListener('keydown', onPopupEnterPress);
+    setupOpenIcon.addEventListener('keydown', onIconEnterDown);
+    document.addEventListener('keydown', onPopupEscDown);
+    setupClose.addEventListener('keydown', onPopupEnterDown);
     wizardCoat.addEventListener('click', onWizardCoatClick);
     wizardEyes.addEventListener('click', onWizardEyesClick);
     setupFireball.addEventListener('click', onFireballClick);
